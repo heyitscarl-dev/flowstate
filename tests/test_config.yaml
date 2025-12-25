@@ -1,5 +1,9 @@
 hosts:
-  - label: Test Host 1
-    on: http://example.com
-  - label: Test Host 2
-    on: http://example.org
+  - type: http
+    label: Test Host 1
+    url: http://example.com
+  - type: http
+    label: Test Host 2
+    url: http://example.org
+    status: 200
+    regex: ".*"
