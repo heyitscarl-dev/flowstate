@@ -1,0 +1,5 @@
+hosts:
+  - label: Test Host 1
+    on: http://example.com
+  - label: Test Host 2
+    on: http://example.org
