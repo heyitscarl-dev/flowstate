@@ -2,4 +2,6 @@ hosts:
   - label: Glance
     type: http
     url: http://0.0.0.0:8081
-    regex: ".*"
+  - label: Filebrowser
+    type: http
+    url: http://0.0.0.0:8080

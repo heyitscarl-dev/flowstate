@@ -1,5 +1,5 @@
 use tracing::info;
-use flowstate::{config::load_config, error::Fallible, model::host::Host, services::monitor};
+use flowstate::{config::{HostConfiguration, load_config}, error::Fallible, services::monitor};
 
 #[tokio::main]
 async fn main() -> Fallible {
@@ -11,7 +11,7 @@ async fn main() -> Fallible {
 
     for host in config.hosts {
         match host {
-            Host::HTTP(host) => {
+            HostConfiguration::HTTP(host) => {
                 let result = monitor::monitor_host(&host).await;
                 info!("Host {:?}'a status: {:?}", &host.label, result);
             },

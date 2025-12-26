@@ -3,15 +3,15 @@ use std::fs;
 
 use serde::Deserialize;
 
+use crate::config::HostConfiguration;
 use crate::error::{Error, Result};
-use crate::model;
 
 const CONFIG_ENVIRONMENT: &str = "FLOW_CONFIG";
 const CONFIG_LOCATION: &str = "Flow.yaml";
 
 #[derive(Debug, Deserialize)]
 pub struct Configuration {
-    pub hosts: Vec<model::host::Host>
+    pub hosts: Vec<HostConfiguration>
 }
 
 pub fn load_config() -> Result<Configuration> {

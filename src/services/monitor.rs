@@ -1,6 +1,6 @@
 use thiserror::Error;
 
-use crate::model::host::HTTPHost;
+use crate::config::HTTPHostConfiguration;
 
 pub type HTTPResult = std::result::Result<(), HTTPError>;
 
@@ -16,7 +16,7 @@ pub enum HTTPError {
     InvalidHeaders,
 }
 
-pub async fn monitor_host(host: &HTTPHost) -> HTTPResult {
+pub async fn monitor_host(host: &HTTPHostConfiguration) -> HTTPResult {
     // 1. Host responds
 
     let response = reqwest::get(&host.url).await
@@ -57,7 +57,7 @@ mod tests {
             .mount(&mock_server)
             .await;
 
-        let host = HTTPHost {
+        let host = HTTPHostConfiguration {
             label: "Test Host".to_string(),
             url: mock_server.uri(),
             status: None,
@@ -77,7 +77,7 @@ mod tests {
             .mount(&mock_server)
             .await;
 
-        let host = HTTPHost {
+        let host = HTTPHostConfiguration {
             label: "Test Host".to_string(),
             url: mock_server.uri(),
             status: Some(StatusCode::from_u16(200).unwrap()),
@@ -97,7 +97,7 @@ mod tests {
             .mount(&mock_server)
             .await;
 
-        let host = HTTPHost {
+        let host = HTTPHostConfiguration {
             label: "Test Host".to_string(),
             url: mock_server.uri(),
             status: Some(StatusCode::from_u16(200).unwrap()),
@@ -118,7 +118,7 @@ mod tests {
             .mount(&mock_server)
             .await;
 
-        let host = HTTPHost {
+        let host = HTTPHostConfiguration {
             label: "Test Host".to_string(),
             url: mock_server.uri(),
             status: None,
@@ -138,7 +138,7 @@ mod tests {
             .mount(&mock_server)
             .await;
 
-        let host = HTTPHost {
+        let host = HTTPHostConfiguration {
             label: "Test Host".to_string(),
             url: mock_server.uri(),
             status: None,
@@ -159,7 +159,7 @@ mod tests {
             .mount(&mock_server)
             .await;
 
-        let host = HTTPHost {
+        let host = HTTPHostConfiguration {
             label: "Test Host".to_string(),
             url: mock_server.uri(),
             status: Some(StatusCode::from_u16(201).unwrap()),
@@ -179,7 +179,7 @@ mod tests {
             .mount(&mock_server)
             .await;
 
-        let host = HTTPHost {
+        let host = HTTPHostConfiguration {
             label: "Test Host".to_string(),
             url: mock_server.uri(),
             status: Some(StatusCode::from_u16(201).unwrap()),
@@ -200,7 +200,7 @@ mod tests {
             .mount(&mock_server)
             .await;
 
-        let host = HTTPHost {
+        let host = HTTPHostConfiguration {
             label: "Test Host".to_string(),
             url: mock_server.uri(),
             status: Some(StatusCode::from_u16(201).unwrap()),
@@ -214,7 +214,7 @@ mod tests {
 
     #[tokio::test]
     async fn test_monitor_host_unresponsive() {
-        let host = HTTPHost {
+        let host = HTTPHostConfiguration {
             label: "Test Host".to_string(),
             url: "http://localhost:99999".to_string(), // Invalid port
             status: None,
@@ -235,7 +235,7 @@ mod tests {
             .mount(&mock_server)
             .await;
 
-        let host = HTTPHost {
+        let host = HTTPHostConfiguration {
             label: "Test Host".to_string(),
             url: mock_server.uri(),
             status: None,
