@@ -28,10 +28,12 @@ pub fn load_config() -> Result<Configuration> {
 #[cfg(test)]
 mod tests {
     use super::*;
+    use serial_test::serial;
     use std::io::Write;
     use tempfile::NamedTempFile;
 
     #[test]
+    #[serial]
     fn test_load_valid_config() {
         let yaml_content = r#"
 hosts:
@@ -52,6 +54,7 @@ hosts:
     }
 
     #[test]
+    #[serial]
     fn test_load_config_with_multiple_hosts() {
         let yaml_content = r#"
 hosts:
@@ -80,6 +83,7 @@ hosts:
     }
 
     #[test]
+    #[serial]
     fn test_load_config_empty_hosts() {
         let yaml_content = r#"
 hosts: []
@@ -97,6 +101,7 @@ hosts: []
     }
 
     #[test]
+    #[serial]
     fn test_load_config_invalid_yaml() {
         let yaml_content = "not valid: yaml: content: [";
         let mut temp_file = NamedTempFile::new().unwrap();
@@ -124,6 +129,7 @@ hosts: []
     }
 
     #[test]
+    #[serial]
     fn test_load_config_missing_required_fields() {
         let yaml_content = r#"
 hosts:
